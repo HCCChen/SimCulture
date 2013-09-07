@@ -3,12 +3,14 @@
 */
 
 #include "lib/Culture.h"
+#include "lib/Terrain.h"
 
 int main(int argc, char* argv[]){
 	srand((unsigned)time(NULL));
+	Terrain terrain(100, 100, 'c');
 	Culture culture[3];
-	culture[0].showResult();
-	culture[1].showResult();
-	culture[2].showResult();
+
+	terrain.generalMap('c');
+	terrain.showMap();
 	return 0;
 }
