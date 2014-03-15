@@ -1,43 +1,27 @@
 #include "Terrain.h"
 
-Terrain::Terrain(int width, int height, char type){
-	int loopCounter1, loopCounter2;
-	mapWidth = width;
-	mapHeight = height;
-	mapSpace = new char*[height];
-	mapElevation = new int*[height];
-	for(loopCounter1 = 0; loopCounter1 < height; loopCounter1++){
-		mapSpace[loopCounter1] = new char[width];
-		mapElevation[loopCounter1] = new int[height];
-	}
-		
-	for(loopCounter1 = 0; loopCounter1 < height; loopCounter1++){
-		for(loopCounter2 = 0; loopCounter2 < width; loopCounter2++){
-			mapSpace[loopCounter1][loopCounter2] = '.';
-			mapElevation[loopCounter1][loopCounter2] = 0;
-		}
-	}
+Terrain::Terrain(){
+	generalTerrian('.');
 }
 
-bool Terrain::showMap(){
-	int loopCounter1, loopCounter2;
-	for(loopCounter1 = 0; loopCounter1 < mapHeight; loopCounter1++){
-		for(loopCounter2 = 0; loopCounter2 < mapWidth; loopCounter2++){
-			cout <<mapSpace[loopCounter1][loopCounter2];
-		}
-		cout << endl;
-	}
+Terrain::Terrain(char type){
+	generalTerrian(type);
+}
 
+bool Terrain::showTerrianInfo(){
+	cout << "地形種類：" << terrianType << endl;
+	cout << "氣候分數：" << weatherScore << endl;
+	cout << "資源分數：" << resourceScore << endl;
 	return true;
 }
 
-bool Terrain::generalMap(char type){
-	int loopCounter1, loopCounter2;
-	for(loopCounter1 = 0; loopCounter1 < mapHeight; loopCounter1++){
-		for(loopCounter2 = 0; loopCounter2 < mapWidth; loopCounter2++){
-			mapSpace[loopCounter1][loopCounter2] = type;
-		}
-		cout << endl;
-	}
+char Terrain::getTerrianType(){
+	return terrianType;	
+}
+
+bool Terrain::generalTerrian(char type){
+	terrianType = type;
+	weatherScore = randomCreater(40, 90);
+	resourceScore = randomCreater(40, 90);
 	return true;
 }

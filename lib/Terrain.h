@@ -1,24 +1,21 @@
-#include <cstring>
 #include <iostream>
-#include <cstdlib>
-#include <cstdio>
-#include <sstream>
-#include <fstream>
-#include <vector>
+#include "Calculate.h"
 
 using namespace std;
 
 class Terrain{
 	public:
 		//Construction
-		Terrain(int width, int height, char type);
-		//Show the World Map
-		bool showMap();
+		Terrain(char type);
+		Terrain();
+		//Show Terrain Information
+		bool showTerrianInfo();
+		//Return Terrain Type
+		char getTerrianType();
 		//General world's terrain for specific type
-		bool generalMap(char type);
+		bool generalTerrian(char type);
 	private: 
-		char**	mapSpace;
-		int**	mapElevation;
-		int	mapWidth;
-		int	mapHeight;
+		char terrianType;
+		int weatherScore;
+		int resourceScore;
 };
