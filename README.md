@@ -11,7 +11,7 @@ I do not know how much time I spend here, but I want to try it!
 Terrian Type:
 
     Symbol  |   Type    |   Detail
------------------------------------------------------
+    ----------------------------------------------
         .   |   Plain   |   Flat and cover by grass
         t   |   Forest  |   Flat and have a lot of tree
         s   |   Desert  |   Flat but cover by sand, lack of water
