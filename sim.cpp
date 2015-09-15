@@ -3,9 +3,12 @@
 #include "lib/Terrain.h"
 #include "lib/Calculate.h"
 
+int randomPositiveInt(int min, int max);
+bool randomBoolean(int numerator, int denominator);
 int commandHandler(char cmd);
 bool commandCatcher(char* cmd);
-void showMap(Terrain **map);
+void showMap(Terrain **map, int weight, int hight);
+Terrain** constructMap(int weight, int hight);
 
 int main(int argc, char* argv[]){
     srand((unsigned)time(NULL));
@@ -13,20 +16,12 @@ int main(int argc, char* argv[]){
     int i, j, ret, goingRound = 0;
     char cmd;
     Culture culture[3];
-
-    //Create Map
-    terrain = new Terrain*[20];
-    for(i = 0; i < 20; i++){
-        terrain[i] = new Terrain[20];
-        for(j = 0; j < 20; j++){
-            terrain[i][j].generalTerrian('.');
-        }
-    }
-    cout << "Map gereate finish" << endl;
+    terrain = constructMap(40, 20);
 
     while(1) {
         //Show map
-        showMap(terrain);
+        terrain = constructMap(40, 20);
+        showMap(terrain, 40, 20);
         //Handle user command
         if (goingRound == 0) {
             commandCatcher(&cmd);
@@ -46,11 +41,72 @@ int main(int argc, char* argv[]){
     return 0;
 }
 
-void showMap(Terrain **map) {
+int randomPositiveInt(int min, int max) {
+    int randNum;
+    if (min < 0 || max < 0 || min >= max) {
+        return -1;
+    }
+    srand(time(NULL));
+    randNum = min + (rand() % (max - min + 1));
+    return randNum;
+}
+
+bool randomBoolean(int numerator, int denominator) {
+    int randNum, randBuf, i;
+    int *selectedList;
+    if (numerator < 1 || denominator < 1) {
+        return false;
+    }
+    srand(time(NULL));
+    selectedList = new int[numerator];
+    randBuf = (rand() % (denominator - numerator + 1));
+    for(i = 0; i < numerator; i++) {
+        selectedList[i] = randBuf + i;
+    }
+    randNum = (rand() % denominator);
+    for(i = 0; i < numerator; i++) {
+        if (selectedList[i] == randNum) {
+            return true;
+        }
+    }
+    return false;
+}
+
+Terrain** constructMap(int weight, int hight) {
+    Terrain **terrain;
+    int i, j, seedX, seedY, groupCounter;
+    //Initialize basic Map
+    terrain = new Terrain*[hight];
+    for(i = 0; i < hight; i++) {
+        terrain[i] = new Terrain[weight];
+        for(j = 0; j < weight; j++) {
+            terrain[i][j].generalTerrian('.');
+        }
+    }
+    //Generate Hill
+    seedX = randomPositiveInt(0, (weight-1));
+    seedY = randomPositiveInt(0, (hight-1));
+    terrain[seedY][seedX].generalTerrian('M');
+    groupCounter = 0;
+    while(true) {
+        if (randomBoolean(10 - groupCounter, 10) &&
+                (seedX + groupCounter) < weight &&
+                (seedY + groupCounter) < hight) {
+            terrain[seedY + groupCounter][seedX + groupCounter].generalTerrian('M');
+            terrain[seedY + groupCounter][seedX + groupCounter + 1].generalTerrian('M');
+            groupCounter++;
+        } else {
+            break;
+        }
+    }
+    return terrain;
+}
+
+void showMap(Terrain **map, int weight, int hight) {
     int i, j, ret;
     ret = system("clear");
-    for(i = 0; i < 20; i++){
-        for(j = 0; j < 20; j++){
+    for(i = 0; i < hight; i++){
+        for(j = 0; j < weight; j++){
             cout << map[i][j].getTerrianType() << " ";
         }
         cout << endl;
