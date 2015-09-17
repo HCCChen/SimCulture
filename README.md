@@ -1,9 +1,9 @@
 Simulator of Culture Document
 ===========================================
 
-This is a project of simulator of culture.
+This is a project about Culture Simulator
 We try to simulate the culture develop process by this project,
-this Project will combin with Mathematic, Sociology, Psychology...etc.
+This Project will try to combin with Mathematic, Sociology, Psychology...etc.
 It is a dream of Sci-fi fans: develop our own world, and we can observe and control it.
 I do not know how much time I spend here, but I want to try it!
 

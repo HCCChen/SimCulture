@@ -1,14 +1,8 @@
-#include <unistd.h>
 #include "lib/Culture.h"
-#include "lib/Terrain.h"
-#include "lib/Calculate.h"
+#include "lib/Map.h"
 
-int randomPositiveInt(int min, int max);
-bool randomBoolean(int numerator, int denominator);
-int commandHandler(char cmd);
+int commandHandler(char cmd, Terrain **terrain);
 bool commandCatcher(char* cmd);
-void showMap(Terrain **map, int weight, int hight);
-Terrain** constructMap(int weight, int hight);
 
 int main(int argc, char* argv[]){
     srand((unsigned)time(NULL));
@@ -25,7 +19,7 @@ int main(int argc, char* argv[]){
         //Handle user command
         if (goingRound == 0) {
             commandCatcher(&cmd);
-            ret = commandHandler(cmd);
+            ret = commandHandler(cmd, terrain);
             if (ret == -1) {break;}
             else if (ret == 1) {continue;}
             else if (ret > 1) {
@@ -41,86 +35,14 @@ int main(int argc, char* argv[]){
     return 0;
 }
 
-int randomPositiveInt(int min, int max) {
-    int randNum;
-    if (min < 0 || max < 0 || min >= max) {
-        return -1;
-    }
-    srand(time(NULL));
-    randNum = min + (rand() % (max - min + 1));
-    return randNum;
-}
-
-bool randomBoolean(int numerator, int denominator) {
-    int randNum, randBuf, i;
-    int *selectedList;
-    if (numerator < 1 || denominator < 1) {
-        return false;
-    }
-    srand(time(NULL));
-    selectedList = new int[numerator];
-    randBuf = (rand() % (denominator - numerator + 1));
-    for(i = 0; i < numerator; i++) {
-        selectedList[i] = randBuf + i;
-    }
-    randNum = (rand() % denominator);
-    for(i = 0; i < numerator; i++) {
-        if (selectedList[i] == randNum) {
-            return true;
-        }
-    }
-    return false;
-}
-
-Terrain** constructMap(int weight, int hight) {
-    Terrain **terrain;
-    int i, j, seedX, seedY, groupCounter;
-    //Initialize basic Map
-    terrain = new Terrain*[hight];
-    for(i = 0; i < hight; i++) {
-        terrain[i] = new Terrain[weight];
-        for(j = 0; j < weight; j++) {
-            terrain[i][j].generalTerrian('.');
-        }
-    }
-    //Generate Hill
-    seedX = randomPositiveInt(0, (weight-1));
-    seedY = randomPositiveInt(0, (hight-1));
-    terrain[seedY][seedX].generalTerrian('M');
-    groupCounter = 0;
-    while(true) {
-        if (randomBoolean(10 - groupCounter, 10) &&
-                (seedX + groupCounter) < weight &&
-                (seedY + groupCounter) < hight) {
-            terrain[seedY + groupCounter][seedX + groupCounter].generalTerrian('M');
-            terrain[seedY + groupCounter][seedX + groupCounter + 1].generalTerrian('M');
-            groupCounter++;
-        } else {
-            break;
-        }
-    }
-    return terrain;
-}
-
-void showMap(Terrain **map, int weight, int hight) {
-    int i, j, ret;
-    ret = system("clear");
-    for(i = 0; i < hight; i++){
-        for(j = 0; j < weight; j++){
-            cout << map[i][j].getTerrianType() << " ";
-        }
-        cout << endl;
-    }
-}
-
 bool commandCatcher(char* cmd) {
     cout << "Please enter the command: ";
     cin >> cmd;
     return true;
 }
 
-int commandHandler(char cmd) {
-    int intBuf = 0;
+int commandHandler(char cmd, Terrain **terrain) {
+    int intBuf = 0, x = 0, y = 0, ret = 0;
     while(1) {
         switch(cmd) {
             case 'h':
@@ -140,6 +62,20 @@ int commandHandler(char cmd) {
                 cout << "Go to next N round" << endl << "n: ";
                 cin >> intBuf;
                 return intBuf;
+                break;
+            case 'v':
+                cout << "Please input x and y value:" << endl;
+                cout << "x: ";
+                cin >> x;
+                cout << "y: ";
+                cin >> y;
+                terrain[y][x].showTerrianInfo();
+                commandCatcher(&cmd);
+                continue;
+                break;
+            case 'f':
+                showMap(terrain, 40, 20);
+                commandCatcher(&cmd);
                 break;
             default:
                 cout << "Invaild command, please try again: ";

@@ -1,13 +1,31 @@
 #include "Calculate.h"
 
-//Create random number(integer) in given range
-int randomCreater(int from, int end){
-    return (from - end)*(double)rand()/RAND_MAX + end;
+int randomPositiveInt(int min, int max) {
+    int randNum;
+    if (min < 0 || max < 0 || min >= max) {
+        return -1;
+    }
+    randNum = min + (rand() % (max - min + 1));
+    return randNum;
 }
-//Give the happen/un-happen result base on given probability
-bool isHappen(double probability){
-    int proFlag = (int)(probability*100);
-    int happenFlag = randomCreater(1, 10000);
-    if(happenFlag <= proFlag){return true;}
-    else{return false;}
+
+bool randomBoolean(int numerator, int denominator) {
+    int randNum, randBuf, i;
+    int *selectedList;
+    if (numerator < 1 || denominator < 1) {
+        return false;
+    }
+    selectedList = new int[numerator];
+    randBuf = (rand() % (denominator - numerator + 1));
+    for(i = 0; i < numerator; i++) {
+        selectedList[i] = randBuf + i;
+    }
+    randNum = (rand() % denominator);
+    for(i = 0; i < numerator; i++) {
+        if (selectedList[i] == randNum) {
+            return true;
+        }
+    }
+    return false;
 }
+
