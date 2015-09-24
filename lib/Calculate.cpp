@@ -29,3 +29,5 @@ bool randomBoolean(int numerator, int denominator) {
     return false;
 }
 
+void log(string logContext) {
+}

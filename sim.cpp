@@ -1,5 +1,4 @@
-#include "lib/Culture.h"
-#include "lib/Map.h"
+#include "lib/SimMethod.h"
 
 int commandHandler(char cmd, Terrain **terrain);
 bool commandCatcher(char* cmd);
@@ -7,15 +6,17 @@ bool commandCatcher(char* cmd);
 int main(int argc, char* argv[]){
     srand((unsigned)time(NULL));
     Terrain **terrain;
+    char **cultureMap;
     int i, j, ret, goingRound = 0;
     char cmd;
-    Culture culture[3];
+    Culture *culture;
     terrain = constructMap(40, 20);
-
+    cultureMap = constructCivilization(40, 20, 3, culture);
     while(1) {
         //Show map
+        /* for test */
         terrain = constructMap(40, 20);
-        showMap(terrain, 40, 20);
+        showTerrainMap(terrain, 40, 20);
         //Handle user command
         if (goingRound == 0) {
             commandCatcher(&cmd);
@@ -69,12 +70,12 @@ int commandHandler(char cmd, Terrain **terrain) {
                 cin >> x;
                 cout << "y: ";
                 cin >> y;
-                terrain[y][x].showTerrianInfo();
+                terrain[y][x].showTerrainInfo();
                 commandCatcher(&cmd);
                 continue;
                 break;
             case 'f':
-                showMap(terrain, 40, 20);
+                showTerrainMap(terrain, 40, 20);
                 commandCatcher(&cmd);
                 break;
             default:
