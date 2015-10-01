@@ -8,6 +8,11 @@
 
 using namespace std;
 
+typedef struct coordinate {
+    int x;
+    int y;
+} Coordinate;
+
 class Culture{
 public:
 	Culture();				//初始化
@@ -15,9 +20,12 @@ public:
 	void	showResult();			//輸出結果
 	void	saveResult(string fileName);	//將結果存入檔案
 	void	loadResult(string fileName);	//載入該次結果
+    bool    addTerritory(int x, int y);
 private:
 	int	getRandom(int begin, int end);	//取得範圍內亂數
-	int	surviveTime;	//生存時間：單位 hr
+    vector<Coordinate> territory;
+    int	surviveTime;	//生存時間：單位 hr
+    int maxOfScore;
 	double	weather;	//氣候分數
 	double	terrain;	//地形分數
 	double	resources;	//資源分數

@@ -15,22 +15,24 @@ Culture::Culture(){
 	political = getRandom(60,80);
 	religion = getRandom(0,100);
 	culture = getRandom(1,10);
-	deltaWeather = 0;
-	deltaTerrain = 0;
-	deltaResources = 0;
-	deltaPeople = 0;
-	deltaEconomic = 0;
-	deltaScience = 0;
-	deltaPolitical = 0;
-	deltaReligion = 0;
-	deltaCulture = 0;
-	surviveTime = 0;
+	deltaWeather = 1;
+	deltaTerrain = 1;
+	deltaResources = 1;
+	deltaPeople = 1;
+	deltaEconomic = 1;
+	deltaScience = 1;
+	deltaPolitical = 1;
+	deltaReligion = 1;
+	deltaCulture = 1;
+	surviveTime = 1;
+    maxOfScore = 100;
 }
 
 /*
 	顯示分數
 */
-void Culture::showResult(){
+void Culture::showResult() {
+    int i;
 	cout << "氣候分數: " << weather << "/100" << endl;
 	cout << "地形分數: " << terrain << "/100" << endl;
 	cout << "政治分數: " << political << "/100" << endl;
@@ -42,16 +44,21 @@ void Culture::showResult(){
 	cout << "文化分數: " << culture << endl;
 	cout << "總體分數: " << "--" << endl;
 	cout << "生存時間: " << surviveTime << "時" << endl;
+    cout << "Territory: ";
+    for(i = 0; i < territory.size(); i++) {
+        cout << "(" << territory[i].x << ", " << territory[i].y << ") ";
+    }
+    cout << endl;
 }
 
 void Culture::simARound(){
-	weather += deltaWeather;
-	terrain += deltaTerrain;
+	if (weather < maxOfScore) {weather += deltaWeather;}
+	if (terrain < maxOfScore) {terrain += deltaTerrain;}
+	if (political < maxOfScore) {political += deltaPolitical;}
 	resources += deltaResources;
 	people += deltaPeople;
 	economic += deltaEconomic;
 	science += deltaScience;
-	political += deltaPolitical;
 	culture += deltaCulture;
 	surviveTime += 1;
 
@@ -59,4 +66,12 @@ void Culture::simARound(){
 
 int Culture::getRandom(int begin, int end){
 	return rand()%(end-begin)+begin;
+}
+
+bool Culture::addTerritory(int x, int y) {
+    Coordinate buf;
+    buf.x = x;
+    buf.y = y;
+    territory.push_back(buf);
+    return true;
 }

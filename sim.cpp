@@ -1,34 +1,49 @@
 #include "lib/SimMethod.h"
 
 int commandHandler(char cmd, Terrain **terrain);
-bool commandCatcher(char* cmd);
+void commandCatcher(char &cmd);
+
+//For testing
+const int DEFAULT_NUMBER_OF_CULTURE = 3;
+const int DEFAULT_WEIGHT_OF_MAP = 5;
+const int DEFAULT_HIGHT_OF_MAP = 5;
 
 int main(int argc, char* argv[]){
     srand((unsigned)time(NULL));
     Terrain **terrain;
     char **cultureMap;
+    char **terrainMap;
     int i, j, ret, goingRound = 0;
+    int mapWeight = DEFAULT_WEIGHT_OF_MAP, mapHight = DEFAULT_HIGHT_OF_MAP, numberOfCulture = DEFAULT_NUMBER_OF_CULTURE;
     char cmd;
-    Culture *culture;
-    terrain = constructMap(40, 20);
-    cultureMap = constructCivilization(40, 20, 3, culture);
-    while(1) {
+    vector<Culture> culture;
+    terrain = constructMap(mapWeight, mapHight);
+    terrainMap = transToSymbolMap(terrain, mapWeight, mapHight);
+    cultureMap = constructCivilization(mapWeight, mapHight, numberOfCulture, culture, terrainMap);
+    showMap(terrain, cultureMap, mapWeight, mapHight, culture);
+    while(1) {//Simulator
         //Show map
-        /* for test */
-        terrain = constructMap(40, 20);
-        showTerrainMap(terrain, 40, 20);
+        showMap(terrain, cultureMap, mapWeight, mapHight, culture);
         //Handle user command
         if (goingRound == 0) {
-            commandCatcher(&cmd);
+            commandCatcher(cmd);
             ret = commandHandler(cmd, terrain);
             if (ret == -1) {break;}
-            else if (ret == 1) {continue;}
-            else if (ret > 1) {
+            else if (ret == -2) {continue;}
+            else if (ret > 0) {
                 goingRound = ret;
             }
         }
-        else {
+        else {//Calculate each round delta
             cout << "Round: " << goingRound << endl;
+            //Delta of Culture
+            for(i = 0; i < numberOfCulture; i++) {
+                culture[i].simARound();
+                cout << "Show the result of culture " << i << ": " << endl;
+                culture[i].showResult();
+            }
+            //Event of Culture
+            //Expansion/Reduce of land
             goingRound--;
             sleep(1);
         }
@@ -36,10 +51,9 @@ int main(int argc, char* argv[]){
     return 0;
 }
 
-bool commandCatcher(char* cmd) {
+void commandCatcher(char &cmd) {
     cout << "Please enter the command: ";
     cin >> cmd;
-    return true;
 }
 
 int commandHandler(char cmd, Terrain **terrain) {
@@ -48,7 +62,7 @@ int commandHandler(char cmd, Terrain **terrain) {
         switch(cmd) {
             case 'h':
                 cout << "Show command list: " << endl;
-                commandCatcher(&cmd);
+                commandCatcher(cmd);
                 continue;
                 break;
             case 'E':
@@ -71,12 +85,11 @@ int commandHandler(char cmd, Terrain **terrain) {
                 cout << "y: ";
                 cin >> y;
                 terrain[y][x].showTerrainInfo();
-                commandCatcher(&cmd);
+                commandCatcher(cmd);
                 continue;
                 break;
             case 'f':
-                showTerrainMap(terrain, 40, 20);
-                commandCatcher(&cmd);
+                return -2;
                 break;
             default:
                 cout << "Invaild command, please try again: ";

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Calculate.h"
 
 using namespace std;

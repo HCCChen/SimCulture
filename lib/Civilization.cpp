@@ -1,10 +1,10 @@
 #include "Civilization.h"
 
-char** constructCivilization(int weight, int hight, int numOfCulture, Culture* &culture) {
+char** constructCivilization(int weight, int hight, int numOfCulture, vector<Culture> &culture, char **terrainMap) {
     char** civilizationMap;
     int i, j, seedX, seedY, randNum;
+    Culture *bufCulture;
     //Initialize basic Map
-    culture = new Culture[numOfCulture];
     civilizationMap = new char*[hight];
     for (i = 0; i < hight; i++) {
         civilizationMap[i] = new char[weight];
@@ -13,11 +13,18 @@ char** constructCivilization(int weight, int hight, int numOfCulture, Culture* &
         }
     }
 
-    //Random put culture seed into map
     for (i = 0; i < numOfCulture; i++) {
-        seedX = randomPositiveInt(0, (weight-1));
-        seedY = randomPositiveInt(0, (hight-1));
+        while(1) {//Avoid collision
+            seedX = randomPositiveInt(0, (weight-1));
+            seedY = randomPositiveInt(0, (hight-1));
+            if (terrainMap[seedY][seedX] == '~') {continue;}
+            if (civilizationMap[seedY][seedX] == '.') {break;}
+        }
         civilizationMap[seedY][seedX] = '1' + i;
+        bufCulture = new Culture();
+        culture.push_back(*bufCulture);
+        culture.push_back(*bufCulture);
+        culture[i].addTerritory(seedX, seedY);
     }
     return civilizationMap;
 }
