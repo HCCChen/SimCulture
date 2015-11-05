@@ -37,8 +37,12 @@ int main(int argc, char* argv[]){
         else {//Calculate each round delta
             cout << "Round: " << goingRound << endl;
             //Delta of Culture
+            //Cross culture event
             for(i = 0; i < numberOfCulture; i++) {
+                //Regular develope & event happened
                 culture[i].simARound();
+                //AI behavior
+                //Show result
                 cout << "Show the result of culture " << i << ": " << endl;
                 culture[i].showResult();
             }
@@ -90,6 +94,13 @@ int commandHandler(char cmd, Terrain **terrain) {
                 break;
             case 'f':
                 return -2;
+                break;
+            //Below is debug command
+            case 'l':
+                loadConfigFile();
+                showConfig();
+                commandCatcher(cmd);
+                continue;
                 break;
             default:
                 cout << "Invaild command, please try again: ";

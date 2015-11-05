@@ -5,16 +5,16 @@
 
 #include "Culture.h"
 
-Culture::Culture(){
-	weather = getRandom(60,100);
-	terrain = getRandom(60,100);
-	resources = getRandom(1,10);
-	people = getRandom(5,10);
-	economic = getRandom(1,10);
-	science = getRandom(1,10);
-	political = getRandom(60,80);
-	religion = getRandom(0,100);
-	culture = getRandom(1,10);
+Culture::Culture() {
+	weather = randomPositiveInt(60,100);
+	terrain = randomPositiveInt(60,100);
+	resources = randomPositiveInt(1,10);
+	people = randomPositiveInt(5,10);
+	economic = randomPositiveInt(1,10);
+	science = randomPositiveInt(1,10);
+	political = randomPositiveInt(60,80);
+	religion = randomPositiveInt(0,100);
+	culture = randomPositiveInt(1,10);
 	deltaWeather = 1;
 	deltaTerrain = 1;
 	deltaResources = 1;
@@ -25,7 +25,6 @@ Culture::Culture(){
 	deltaReligion = 1;
 	deltaCulture = 1;
 	surviveTime = 1;
-    maxOfScore = 100;
 }
 
 /*
@@ -51,7 +50,8 @@ void Culture::showResult() {
     cout << endl;
 }
 
-void Culture::simARound(){
+void Culture::simARound() {
+    eventEngine.triggerSequenceEvent();
 	if (weather < maxOfScore) {weather += deltaWeather;}
 	if (terrain < maxOfScore) {terrain += deltaTerrain;}
 	if (political < maxOfScore) {political += deltaPolitical;}
@@ -64,14 +64,24 @@ void Culture::simARound(){
 
 }
 
-int Culture::getRandom(int begin, int end){
-	return rand()%(end-begin)+begin;
-}
-
 bool Culture::addTerritory(int x, int y) {
     Coordinate buf;
     buf.x = x;
     buf.y = y;
     territory.push_back(buf);
     return true;
+}
+
+bool Culture::removeTerritory(int x, int y) {
+    unsigned i;
+    Coordinate buf;
+    buf.x = x;
+    buf.y = y;
+    for (i = 0; i < territory.size(); i++) {
+        if(territory[i].x == x && territory[i].y == y) {
+            territory.erase(territory.begin() + i);
+            return true;
+        }
+    }
+    return false;
 }

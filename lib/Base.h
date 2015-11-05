@@ -1,16 +1,40 @@
+#ifndef BASE_FUNCTION
+#define BASE_FUNCTION
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
+#include <cstring>
 #include <ctime>
 #include <unistd.h>
 #include <fstream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
-#ifndef COLOR_TAG
-#define COLOR_TAG
+//Global Setting, initial data is define at "setting.conf"
+const static string CONFIG_FILE_PATH = "resources/setting.conf";
+static string LANGUAGE_PACKAGE_PATH;
+static string LANGUAGE;
+
+//Context information
+
+//Index of cultrue parameter.
+enum idxVariable{
+    IDX_CULTURE_WEATHER,
+    IDX_CULTURE_TERRAIN,
+    IDX_CULTURE_RESOURCES,
+    IDX_CULTURE_PEOPLE,
+    IDX_CULTURE_ECONOMIC,
+    IDX_CULTURE_SCIENCE,
+    IDX_CULTURE_POLITICAL,
+    IDX_CULTURE_RELIGION,
+    IDX_CULTURE_CULTURE,
+    IDX_CULTURE_MAX_COUNT
+};
+
+//Color code for prinf text
 const string END_COLOR = "\E[0;0;0m";
 const string LIGHT_BLOCK = "\E[1;30;40m";
 const string LIGHT_RED = "\E[1;31;40m";
@@ -29,11 +53,19 @@ const string NORMAL_BLUE = "\E[0;34;40m";
 const string NORMAL_PURPLE = "\E[0;35;40m";
 const string NORMAL_CYAN = "\E[0;36;40m";
 const string NORMAL_WHITE = "\E[0;37;40m";
-#endif
 
 //Create random number(integer) in given range, include max/min
 int randomPositiveInt(int min, int max);
 //Give the happen/un-happen result base on given probability
 bool randomBoolean(int numerator, int denominator);
+//Change culture parameter idx to string
+string cultureIdxToString(int idx);
+//Load basic config file
+bool loadConfigFile();
+//Show all config information
+void showConfig();
+//Load string information from file
+bool loadLanguagePack();
 //Write log into file
 void log(string logContext);
+#endif /* BASE_FUNCTION */
