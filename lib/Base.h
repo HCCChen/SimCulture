@@ -10,13 +10,10 @@
 #include <fstream>
 #include <string>
 #include <fstream>
+#include "Language.h"
 
 using namespace std;
 
-//Global Setting, initial data is define at "setting.conf"
-const static string CONFIG_FILE_PATH = "resources/setting.conf";
-static string LANGUAGE_PACKAGE_PATH;
-static string LANGUAGE;
 
 //Context information
 
@@ -64,8 +61,6 @@ string cultureIdxToString(int idx);
 bool loadConfigFile();
 //Show all config information
 void showConfig();
-//Load string information from file
-bool loadLanguagePack();
 //Write log into file
 void log(string logContext);
 #endif /* BASE_FUNCTION */

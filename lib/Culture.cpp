@@ -32,15 +32,16 @@ Culture::Culture() {
 */
 void Culture::showResult() {
     int i;
-	cout << "氣候分數: " << weather << "/100" << endl;
-	cout << "地形分數: " << terrain << "/100" << endl;
-	cout << "政治分數: " << political << "/100" << endl;
-	cout << "宗教分數: " << religion << "/100" << endl;
-	cout << "人口分數: " << people << "千人" << endl;
-	cout << "資源分數: " << resources << endl;
-	cout << "經濟分數: " << economic << endl;
-	cout << "科技分數: " << science << endl;
-	cout << "文化分數: " << culture << endl;
+    extern struct Str_culture str_culture;
+	cout << str_culture.weather << ": " << weather << "/100" << endl;
+	cout << str_culture.terrain << ": " << terrain << "/100" << endl;
+	cout << str_culture.political << ": " << political << "/100" << endl;
+	cout << str_culture.religion << ": " << religion << "/100" << endl;
+	cout << str_culture.people << ": " << people << "千人" << endl;
+	cout << str_culture.resources << ": " << resources << endl;
+	cout << str_culture.economic << ": " << economic << endl;
+	cout << str_culture.science << ": " << science << endl;
+	cout << str_culture.culture << ": " << culture << endl;
 	cout << "總體分數: " << "--" << endl;
 	cout << "生存時間: " << surviveTime << "時" << endl;
     cout << "Territory: ";

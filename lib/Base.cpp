@@ -1,5 +1,11 @@
 #include "Base.h"
 
+//Global Setting, initial data is define at "setting.conf"
+const string CONFIG_FILE_PATH = "resources/setting.conf";
+string LANGUAGE_PACKAGE_PATH;
+string LANGUAGE;
+
+
 int randomPositiveInt(int min, int max) {
     int randNum;
     if (min < 0 || max < 0 || min >= max) {
@@ -30,33 +36,34 @@ bool randomBoolean(int numerator, int denominator) {
 }
 
 string cultureIdxToString(int idx) {
+    extern struct Str_culture str_culture;
     switch(idx) {
         case IDX_CULTURE_WEATHER:
-            return "Weather";
+            return str_culture.weather;
         break;
         case IDX_CULTURE_TERRAIN:
-            return "Terrain";
+            return str_culture.terrain;
         break;
         case IDX_CULTURE_RESOURCES:
-            return "Resources";
+            return str_culture.resources;
         break;
         case IDX_CULTURE_PEOPLE:
-            return "People";
+            return str_culture.people;
         break;
         case IDX_CULTURE_ECONOMIC:
-            return "Economic";
+            return str_culture.economic;
         break;
         case IDX_CULTURE_SCIENCE:
-            return "Science";
+            return str_culture.science;
         break;
         case IDX_CULTURE_POLITICAL:
-            return "Political";
+            return str_culture.political;
         break;
         case IDX_CULTURE_RELIGION:
-            return "Religion";
+            return str_culture.religion;
         break;
         case IDX_CULTURE_CULTURE:
-            return "Culture";
+            return str_culture.culture;
         break;
     }
 }
@@ -91,9 +98,6 @@ void showConfig() {
     cout << "====================================" << endl;
 }
 
-bool loadLanguagePack() {
-    return true;
-}
 
 void log(string logContext) {
 }

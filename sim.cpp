@@ -17,6 +17,11 @@ int main(int argc, char* argv[]){
     int mapWeight = DEFAULT_WEIGHT_OF_MAP, mapHight = DEFAULT_HIGHT_OF_MAP, numberOfCulture = DEFAULT_NUMBER_OF_CULTURE;
     char cmd;
     vector<Culture> culture;
+
+    //Initialize
+    loadConfigFile();
+    loadLanguagePack();
+
     terrain = constructMap(mapWeight, mapHight);
     terrainMap = transToSymbolMap(terrain, mapWeight, mapHight);
     cultureMap = constructCivilization(mapWeight, mapHight, numberOfCulture, culture, terrainMap);
@@ -99,6 +104,7 @@ int commandHandler(char cmd, Terrain **terrain) {
             case 'l':
                 loadConfigFile();
                 showConfig();
+                loadLanguagePack();
                 commandCatcher(cmd);
                 continue;
                 break;

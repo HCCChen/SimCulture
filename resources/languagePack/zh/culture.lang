@@ -1,0 +1,9 @@
+parameter_weather=weather
+parameter_terrain=terrain
+parameter_resources=Resources
+parameter_people=People
+parameter_economic=Economic
+parameter_science=Science
+parameter_political=Political
+parameter_religion=Religion
+parameter_culture=Culture
