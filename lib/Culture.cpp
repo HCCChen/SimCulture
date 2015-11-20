@@ -73,6 +73,10 @@ bool Culture::addTerritory(int x, int y) {
     return true;
 }
 
+vector<Coordinate> Culture::getTerritory() {
+    return territory;
+}
+
 bool Culture::removeTerritory(int x, int y) {
     unsigned i;
     Coordinate buf;
@@ -85,4 +89,40 @@ bool Culture::removeTerritory(int x, int y) {
         }
     }
     return false;
+}
+
+double Culture::getWeatherScore() {
+    return weather;
+}
+
+double Culture::getTerrainScore() {
+    return terrain;
+}
+
+double Culture::getResourcesScore() {
+    return resources;
+}
+
+double Culture::getPeopleScore() {
+    return people;
+}
+
+double Culture::getEconomicScore() {
+    return economic;
+}
+
+double Culture::getScienceScore() {
+    return science;
+}
+
+double Culture::getPoliticalScore() {
+    return political;
+}
+
+double Culture::getReligionScore() {
+    return religion;
+}
+
+double Culture::getCultureScore() {
+    return culture;
 }

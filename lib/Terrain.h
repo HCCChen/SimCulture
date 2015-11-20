@@ -18,9 +18,10 @@ class Terrain{
 		Terrain();
 		//Show Terrain Information
 		bool showTerrainInfo();
-		//Return Terrain Type
+		//Return Terrain information
 		char getTerrianType();
-		//Return Terrain show
+        int getWeatherScore();
+        int getResourcesScore();
 		string getTerrianShow();
 		//General world's terrain for specific type
 		bool generalTerrian(char type);

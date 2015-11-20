@@ -21,6 +21,14 @@ char Terrain::getTerrianType() {
 	return terrianType;	
 }
 
+int Terrain::getWeatherScore() {
+    return weatherScore;
+}
+
+int Terrain::getResourcesScore() {
+    return resourceScore;
+}
+
 string Terrain::getTerrianShow() {
     return terrianShow;
 }

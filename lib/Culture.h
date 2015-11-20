@@ -18,6 +18,16 @@ public:
 	void	loadResult(string fileName);	//載入該次結果
     bool    addTerritory(int x, int y);
     bool    removeTerritory(int x, int y);
+    vector<Coordinate> getTerritory();
+    double  getWeatherScore();
+    double  getTerrainScore();
+    double  getResourcesScore();
+    double  getPeopleScore();
+    double  getEconomicScore();
+    double  getScienceScore();
+    double  getPoliticalScore();
+    double  getReligionScore();
+    double  getCultureScore();
 private:
     static const int maxOfScore = 100;
     EventEngine eventEngine;

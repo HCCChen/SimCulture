@@ -10,7 +10,7 @@ const int DEFAULT_HIGHT_OF_MAP = 5;
 
 int main(int argc, char* argv[]){
     srand((unsigned)time(NULL));
-    Terrain **terrain;
+    extern Terrain **terrain;
     char **cultureMap;
     char **terrainMap;
     int i, j, ret, goingRound = 0;
@@ -47,6 +47,8 @@ int main(int argc, char* argv[]){
                 //Regular develope & event happened
                 culture[i].simARound();
                 //AI behavior
+                //Basic behavior
+                doCivilizationBehavior(culture[i]);
                 //Show result
                 cout << "Show the result of culture " << i << ": " << endl;
                 culture[i].showResult();
@@ -101,10 +103,7 @@ int commandHandler(char cmd, Terrain **terrain) {
                 return -2;
                 break;
             //Below is debug command
-            case 'l':
-                loadConfigFile();
-                showConfig();
-                loadLanguagePack();
+            case 'd':
                 commandCatcher(cmd);
                 continue;
                 break;

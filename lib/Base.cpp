@@ -1,5 +1,9 @@
 #include "Base.h"
 
+//Common variable
+int BASE_DENOMINATOR = 1000;
+int BASE_NUMERATOR = 1;
+
 //Global Setting, initial data is define at "setting.conf"
 const string CONFIG_FILE_PATH = "resources/setting.conf";
 string LANGUAGE_PACKAGE_PATH;

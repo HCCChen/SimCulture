@@ -1,5 +1,7 @@
 #include "Map.h"
 
+Terrain **terrain;
+
 //Debug for show generate process
 static void showGenerateStep(Terrain **map, int weight, int hight) {
     char buf;
