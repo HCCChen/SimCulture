@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -std=c++0x
 INCLUDE = Culture.o Terrain.o Base.o Map.o Civilization.o SimMethod.o Event.o Language.o
-TARGET = -o sim.out
+TARGET = -o sim
 
 all: sim.o Culture.o Terrain.o Base.o Map.o Civilization.o SimMethod.o Event.o Language.o
 	${CC} sim.cpp ${INCLUDE} ${CFLAGS} ${TARGET}

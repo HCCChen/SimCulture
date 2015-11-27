@@ -1,0 +1,3 @@
+make
+del *.o
+pause
