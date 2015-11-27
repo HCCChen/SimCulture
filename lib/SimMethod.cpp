@@ -2,7 +2,7 @@
 
 void showMap(Terrain **map, char **cultureMap, int weight, int hight, vector<Culture> culture) {
     int i, j, ret;
-    ret = system("clear");
+    ret = clearScreen();
 
     cout << "  ";
     for(j = 0; j < weight; j++) {

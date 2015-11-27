@@ -165,7 +165,7 @@ Terrain** constructMap(int weight, int hight) {
 
 void showTerrainMap(Terrain **map, int weight, int hight) {
     int i, j, ret;
-    ret = system("clear");
+    ret = clearScreen();
     for(i = 0; i < hight; i++){
         for(j = 0; j < weight; j++) {
             cout << map[i][j].getTerrianShow() << " ";
