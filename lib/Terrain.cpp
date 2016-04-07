@@ -9,10 +9,11 @@ Terrain::Terrain(char type) {
 }
 
 bool Terrain::showTerrainInfo() {
+    extern struct Str_terrain str_terrain;
 	cout << endl << "==================" << endl;
-	cout << "地形種類：" << terrianType << endl;
-	cout << "氣候分數：" << weatherScore << endl;
-	cout << "資源分數：" << resourceScore << endl;
+	cout << str_terrain.terrainType << ": " << terrianType << endl;
+	cout << str_terrain.weatherScore << ": " << weatherScore << endl;
+	cout << str_terrain.resourceScore << ": " << resourceScore << endl;
 	cout << "==================" << endl;
 	return true;
 }

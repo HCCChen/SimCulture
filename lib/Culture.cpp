@@ -1,6 +1,6 @@
 /*
-	文明模擬基本操作
-	提供顯示；初始化；操作文明互動；時間流逝發展
+    Basic control of Culture
+    Support method: initialization, interactive with Culture, change to each cycle
 */
 
 #include "Culture.h"
@@ -28,7 +28,7 @@ Culture::Culture() {
 }
 
 /*
-	顯示分數
+    Display the score
 */
 void Culture::showResult() {
     int i;
@@ -37,14 +37,14 @@ void Culture::showResult() {
 	cout << str_culture.terrain << ": " << terrain << "/100" << endl;
 	cout << str_culture.political << ": " << political << "/100" << endl;
 	cout << str_culture.religion << ": " << religion << "/100" << endl;
-	cout << str_culture.people << ": " << people << "千人" << endl;
+	cout << str_culture.people << ": " << people << " " << str_culture.people_unit << endl;
 	cout << str_culture.resources << ": " << resources << endl;
 	cout << str_culture.economic << ": " << economic << endl;
 	cout << str_culture.science << ": " << science << endl;
 	cout << str_culture.culture << ": " << culture << endl;
-	cout << "總體分數: " << "--" << endl;
-	cout << "生存時間: " << surviveTime << "時" << endl;
-    cout << "Territory: ";
+	cout << str_culture.totalScore << ": " << "--" << endl;
+	cout << str_culture.liveTime << ": " << surviveTime << " " << str_culture.liveTimeUnit << endl;
+    cout << str_culture.territoryCoordinate << ": ";
     for(i = 0; i < territory.size(); i++) {
         cout << "(" << territory[i].x << ", " << territory[i].y << ") ";
     }

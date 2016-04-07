@@ -1,0 +1,15 @@
+cmd_help=Show command list
+cmd_exit=Exit the program
+cmd_oneRound=Go to next round
+cmd_multiRound=Go to next N round
+cmd_showTerrain=Show the specific terrain, please input the Coordinate
+cmd_default=Invaild command, please try again
+cmd_description_help=h: List all command.
+cmd_description_exit=E: Exit the program.
+cmd_description_oneRound=g: Simulate one round.
+cmd_description_multiRound=G: Simulate multi-round.
+cmd_description_showTerrain=v: Show the inforamtion in specific terrain.
+cmd_description_flashScreen=f: Flash screen.
+str_round=Round
+str_hintToEnterCommand=Please enter the command
+str_beforeShowCultureInfo=Information for culture

@@ -1,4 +1,5 @@
 #include "lib/SimMethod.h"
+#include "lib/Base.h"
 
 int commandHandler(char cmd, Terrain **terrain);
 void commandCatcher(char &cmd);
@@ -7,6 +8,7 @@ void commandCatcher(char &cmd);
 const int DEFAULT_NUMBER_OF_CULTURE = 3;
 const int DEFAULT_WEIGHT_OF_MAP = 5;
 const int DEFAULT_HIGHT_OF_MAP = 5;
+extern struct Str_UI str_UI;
 
 int main(int argc, char* argv[]){
     srand((unsigned)time(NULL));
@@ -40,7 +42,7 @@ int main(int argc, char* argv[]){
             }
         }
         else {//Calculate each round delta
-            cout << "Round: " << goingRound << endl;
+            cout << str_UI.round << ": " << goingRound << endl;
             //Delta of Culture
             //Cross culture event
             for(i = 0; i < numberOfCulture; i++) {
@@ -50,7 +52,7 @@ int main(int argc, char* argv[]){
                 //Basic behavior
                 doCivilizationBehavior(culture[i]);
                 //Show result
-                cout << "Show the result of culture " << i << ": " << endl;
+                cout << endl << str_UI.beforeShowCultureInfo << " " << i << ": " << endl;
                 culture[i].showResult();
             }
             //Event of Culture
@@ -58,12 +60,13 @@ int main(int argc, char* argv[]){
             goingRound--;
             sleep(1);
         }
+        cout << endl;
     }
     return 0;
 }
 
 void commandCatcher(char &cmd) {
-    cout << "Please enter the command: ";
+    cout << str_UI.hintToEnterCommand << ": ";
     cin >> cmd;
 }
 
@@ -72,25 +75,31 @@ int commandHandler(char cmd, Terrain **terrain) {
     while(1) {
         switch(cmd) {
             case 'h':
-                cout << "Show command list: " << endl;
+                cout << str_UI.cmd_help << ": " << endl;
+                cout << "\t" << str_UI.cmd_description_help << endl;
+                cout << "\t" << str_UI.cmd_description_exit << endl;
+                cout << "\t" << str_UI.cmd_description_oneRound << endl;
+                cout << "\t" << str_UI.cmd_description_multiRound << endl;
+                cout << "\t" << str_UI.cmd_description_showTerrain << endl;
+                cout << "\t" << str_UI.cmd_description_flashScreen << endl;
                 commandCatcher(cmd);
                 continue;
                 break;
             case 'E':
-                cout << "Exit the program" << endl;
+                cout << str_UI.cmd_exit << endl;
                 return -1;
                 break;
             case 'g':
-                cout << "Go to next round" << endl;
+                cout << str_UI.cmd_oneRound << endl;
                 return 1;
                 break;
             case 'G':
-                cout << "Go to next N round" << endl << "n: ";
+                cout << str_UI.cmd_multiRound << endl << "n: ";
                 cin >> intBuf;
                 return intBuf;
                 break;
             case 'v':
-                cout << "Please input x and y value:" << endl;
+                cout << str_UI.cmd_showTerrain << endl;
                 cout << "x: ";
                 cin >> x;
                 cout << "y: ";
@@ -108,7 +117,7 @@ int commandHandler(char cmd, Terrain **terrain) {
                 continue;
                 break;
             default:
-                cout << "Invaild command, please try again: ";
+                cout << str_UI.cmd_default << ": ";
                 cin >> cmd;
                 continue;
         }
